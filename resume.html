@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jean Rose Banay — Full-Stack Developer Resume">
+  <title>Jean Rose Banay | Resume</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ═════════════════════════════════════════════════════════════════════════════════════════════════
+       RESUME PAGE — Compact, single-page résumé layout (print-ready, no gaps)
+       Reuses the portfolio's deep-purple palette from style.css
+       ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+
+    .resume-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 28px 22px 40px;
+      color: var(--ink);
+      line-height: 1.5;
+      font-family: var(--sans);
+      font-size: 0.84rem;
+    }
+
+    /* ── Header ── */
+    .resume-head {
+      text-align: center;
+      border-bottom: 2.5px double var(--primary-ink);
+      padding-bottom: 14px;
+      margin-bottom: 20px;
+    }
+    .resume-name {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin: 0 0 4px;
+      color: var(--ink);
+    }
+    .resume-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--primary-ink);
+      margin: 0 0 10px;
+    }
+    .resume-contact {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+    }
+    .resume-contact a {
+      color: var(--primary-ink);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .resume-contact a:hover {
+      text-decoration: underline;
+    }
+    .resume-contact .sep {
+      color: var(--border-soft);
+      font-weight: 400;
+    }
+
+    /* ── Sections ── */
+    section.resume-section {
+      margin-bottom: 16px;
+    }
+    .resume-section h2 {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 2.4px;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin: 0 0 9px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .resume-section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 26px;
+      height: 2px;
+      background: var(--primary-ink);
+    }
+
+    /* ── Professional Summary ── */
+    .resume-summary p {
+      margin: 0;
+      font-size: 0.84rem;
+      color: var(--ink-soft);
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── Technical Skills (two columns: label | values) ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 6px 20px;
+    }
+    .skill-cat {
+      font-weight: 800;
+      font-size: 0.72rem;
+      color: var(--primary-ink);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      align-self: start;
+    }
+    .skill-val {
+      font-size: 0.8rem;
+      color: var(--ink);
+      align-self: start;
+    }
+
+    /* ── Entries: Projects / Experience / Education ── */
+    .resume-entry {
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+    .resume-entry-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+    .resume-entry-name {
+      font-family: var(--serif);
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .resume-entry-date {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--primary-ink);
+      white-space: nowrap;
+    }
+    .resume-entry-stack {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 5px;
+    }
+    .resume-entry ul {
+      margin: 0;
+      padding-left: 16px;
+      color: var(--ink-soft);
+      font-size: 0.8rem;
+    }
+    .resume-entry li {
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+    .resume-entry li::marker {
+      color: var(--primary-ink);
+    }
+
+    /* Education org line */
+    .edu-org {
+      color: var(--ink-muted);
+      font-size: 0.78rem;
+      margin-top: 1px;
+    }
+
+    /* ── Actions ── */
+    .resume-actions {
+      margin-top: 4px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      page-break-inside: avoid;
+    }
+    .btn-print {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s var(--ease);
+    }
+    .btn-print:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-btn);
+    }
+    .back-link {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .back-link:hover { color: var(--primary-ink); }
+
+    .print-hide { display: none !important; }
+
+    /* ── Print ── */
+    @media print {
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      html { background: #fff !important; }
+      body {
+        background: #fff !important;
+        color: #111 !important;
+        font-size: 9pt;
+        line-height: 1.45;
+      }
+      .resume-wrap {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+        color: #111;
+      }
+      .print-hide, .no-print, .resume-actions, .btn-print, .ambient-light,
+      header.navbar, footer, .site-footer { display: none !important; }
+      a { color: #111 !important; text-decoration: none; }
+      .resume-head { border-bottom-color: #111; padding-bottom: 12px; margin-bottom: 16px; }
+      .resume-name { color: #111; }
+      .resume-title { color: #4C2365; }
+      .resume-contact { color: #555; }
+      .resume-contact a { color: #4C2365; }
+      .resume-section { page-break-inside: avoid; margin-bottom: 14px; }
+      .resume-section h2 { color: #111; border-bottom-color: #111; }
+      .resume-section h2::after { background: #111; }
+      .resume-summary p { color: #333; }
+      .skill-cat { color: #4C2365; }
+      .skill-val { color: #111; }
+      .resume-entry-name { color: #111; }
+      .resume-entry-date { color: #4C2365; }
+      .resume-entry-stack { color: #555; }
+      .resume-entry ul { color: #333; }
+      .resume-entry li::marker { color: #4C2365; }
+      .edu-org { color: #555; }
+      .resume-entry { page-break-inside: avoid; margin-bottom: 10px; }
+      @page { margin: 14mm 12mm; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .resume-wrap { padding: 22px 16px 32px; }
+      .resume-name { font-size: 1.8rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .resume-contact { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="resume-wrap">
+
+    <!-- Back to portfolio -->
+    <a href="index.html" class="back-link" aria-label="Back to portfolio"><span aria-hidden="true">←</span> Back to Portfolio</a>
+
+    <!-- ═══════════════ HEADER ═══════════════ -->
+    <header class="resume-head">
+      <h1 class="resume-name">Jean Rose Banay</h1>
+      <div class="resume-title">Full-Stack Developer</div>
+      <div class="resume-contact">
+        <span>Iloilo, Philippines</span>
+        <span class="sep">|</span>
+        <a href="mailto:jeanrosebanay14@gmail.com">jeanrosebanay14@gmail.com</a>
+        <span class="sep">|</span>
+        <a href="https://www.linkedin.com/in/jean-rose-banay-492a293ab/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <span class="sep">|</span>
+        <a href="https://github.com/JeanRose14" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </header>
+
+    <!-- ═══════════════ PROFESSIONAL SUMMARY ═══════════════ -->
+    <section class="resume-section">
+      <h2>Professional Summary</h2>
+      <div class="resume-summary">
+        <p>
+          Full-stack developer and 3rd-year BSIT student who builds and deploys web applications end to end
+          using Next.js (React), TypeScript, FastAPI, and PostgreSQL. Team lead of AcadTrack, an AI-powered
+          academic management system for teachers (React, Next.js, TypeScript, FastAPI, PostgreSQL) showcased
+          at the <strong>2nd INNOVEX 2026 International Conference</strong> in Indonesia. Experienced in
+          database design, secure REST APIs with JWT authentication, mobile-first PWAs, and deployment on
+          Vercel and Railway. Works well in a team and picks up new tools quickly.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════ TECHNICAL SKILLS ═══════════════ -->
+    <section class="resume-section">
+      <h2>Technical Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-cat">Languages</div>
+        <div class="skill-val">Python, JavaScript (ES6+), TypeScript, SQL, Java</div>
+
+        <div class="skill-cat">Frontend</div>
+        <div class="skill-val">React, Next.js, HTML5, CSS3, Tailwind CSS, EJS, Charts.js, Progressive Web Apps (Service Workers, Web Push)</div>
+
+        <div class="skill-cat">Backend</div>
+        <div class="skill-val">FastAPI, Flask, SQLAlchemy (async), REST APIs, JWT authentication, Groq &amp; Gemini AI APIs</div>
+
+        <div class="skill-cat">Databases</div>
+        <div class="skill-val">PostgreSQL, Supabase, MariaDB, MySQL, relational database design</div>
+
+        <div class="skill-cat">Tools &amp; Cloud</div>
+        <div class="skill-val">Git, GitHub, Vercel, Railway, Render, Socket.IO, Figma</div>
+
+        <div class="skill-cat">Familiar With</div>
+        <div class="skill-val">Node.js, PHP, WordPress, MongoDB, Figma</div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ PROJECTS ═══════════════ -->
+    <section class="resume-section">
+      <h2>Projects</h2>
+
+      <div class="resume-entry">
+        <div class="resume-entry-head">
+          <span class="resume-entry-name">AcadTrack — Teacher Management Portal</span>
+          <span class="resume-entry-date">2026</span>
+        </div>
+        <span class="resume-entry-stack">Next.js · React · TypeScript · FastAPI · PostgreSQL</span>
+        <ul>
+          <li>Led a 3-person team building an academic management system for teachers: sections, attendance, class records, configurable grading, and analytics.</li>
+          <li>Designed a Next.js frontend and an async FastAPI + SQLAlchemy API on Supabase PostgreSQL, with JWT authentication and role-based access for teachers and facilitators.</li>
+          <li>Built client reports for attendance, class records, and performance, including the official DepEd E-Class Record format.</li>
+          <li>Presented at the 2nd INNOVEX 2026 International Conference in Indonesia.</li>
+        </ul>
+      </div>
+
+      <div class="resume-entry">
+        <div class="resume-entry-head">
+          <span class="resume-entry-name">FaciPanel — Faculty Dashboard</span>
+          <span class="resume-entry-date">2026</span>
+        </div>
+        <span class="resume-entry-stack">Next.js · TypeScript · FastAPI · Supabase · PWA</span>
+        <ul>
+          <li>Mobile-first, installable PWA for facilitators: attendance, activity records, and section performance, with Web Push notifications.</li>
+          <li>Uses the same PostgreSQL database and grade weights as the teacher portal, so grades always match.</li>
+          <li>Ported from vanilla JavaScript + Supabase to Next.js + FastAPI backend with JWT authentication and server-side data scoping.</li>
+        </ul>
+      </div>
+
+      <div class="resume-entry">
+        <div class="resume-entry-head">
+          <span class="resume-entry-name">Smart Parking System</span>
+          <span class="resume-entry-date">2025</span>
+        </div>
+        <span class="resume-entry-stack">Flask · MySQL · Socket.IO · RFID · Python</span>
+        <ul>
+          <li>RFID-based smart parking system for PHINMA University of Iloilo with real-time monitoring, WebSocket dashboard, and MySQL database.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════ EXPERIENCE ═══════════════ -->
+    <section class="resume-section">
+      <h2>Experience</h2>
+
+      <div class="resume-entry">
+        <div class="resume-entry-head">
+          <span class="resume-entry-name">Independent Full-Stack Developer</span>
+          <span class="resume-entry-date">2026 — Present</span>
+        </div>
+        <ul>
+          <li>Design, build, and deploy full-stack web apps end to end: database, REST API, UI, and hosting.</li>
+          <li>Lead the 3-person team on AcadTrack from planning through deployment and releases.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════ EDUCATION ═══════════════ -->
+    <section class="resume-section">
+      <h2>Education</h2>
+
+      <div class="resume-entry">
+        <div class="resume-entry-head">
+          <span class="resume-entry-name">Bachelor of Science in Information Technology</span>
+          <span class="resume-entry-date">3rd Year — Ongoing</span>
+        </div>
+        <div class="edu-org">PHINMA University of Iloilo</div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ ACTIONS ═══════════════ -->
+    <div class="resume-actions">
+      <button class="btn-print" onclick="window.print()" aria-label="Print / Save as PDF">
+        <span aria-hidden="true">⌄</span> Print / Save PDF
+      </button>
+      <a href="index.html" class="back-link" aria-label="Back to portfolio"><span aria-hidden="true">←</span> Back to Portfolio</a>
+    </div>
+
+    <p class="print-hide" style="text-align:center; margin-top: 26px; font-size: 0.7rem; color: var(--ink-faint); letter-spacing: 1px;">
+      © 2026 Jean Rose Banay — Resume
+    </p>
+
+  </div>
+
+</body>
+</html>
