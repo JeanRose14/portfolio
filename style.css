@@ -583,7 +583,8 @@ ul, ol { list-style: none; }
   width: 62%;
   height: 62%;
   border-radius: 50%;
-  background: var(--primary);
+  background: transparent;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -596,6 +597,20 @@ ul, ol { list-style: none; }
   font-weight: 800;
   color: #F6F1FA;
   letter-spacing: 2px;
+}
+
+/* Profile photo inside hero circle */
+.profile-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  display: block;
+  transition: transform 0.4s var(--ease);
+}
+.hero-visual:hover .profile-photo {
+  transform: scale(1.03);
 }
 
 /* ═══════════ PROJECTS ═══════════ */
