@@ -104,6 +104,24 @@
     });
   }
 
+  /* ─── HOME / logo — scroll to top without adding #hero to URL ─── */
+  function scrollToTopClean(e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+    try {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    } catch (err) { /* restricted contexts (e.g. file://) — keep URL as-is */ }
+  }
+  document.querySelectorAll('a[href="#hero"]').forEach(function (link) {
+    link.addEventListener('click', scrollToTopClean);
+  });
+  // Strip #hero from the URL if the page loads with it
+  if (window.location.hash === '#hero') {
+    try {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    } catch (err) { /* ignore */ }
+  }
+
   /* ─── Project Cards — Keyboard & Click ─── */
   document.querySelectorAll('.project-card').forEach(function (card) {
     var url = card.getAttribute('data-url');
