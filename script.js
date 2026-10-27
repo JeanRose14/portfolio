@@ -82,18 +82,29 @@
   window.addEventListener('scroll', updateActiveLink, { passive: true });
   updateActiveLink();
 
-  /* ─── Clean URL — HOME & logo scroll to top without adding #hero ─── */
-  if (window.location.hash === '#hero') {
-    history.replaceState(null, '', window.location.pathname + window.location.search);
-  }
+  /* ─── Clean URLs — anchor navigation without #hash in the address bar ─── */
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('a[href^="#"]');
+    if (!link) return;
 
-  document.querySelectorAll('a[href="#hero"]').forEach(function (link) {
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
-    });
+    var id = link.getAttribute('href').slice(1);
+    var target = id ? document.getElementById(id) : null;
+    if (!target) return;
+
+    e.preventDefault();
+    target.scrollIntoView();
+    history.replaceState(null, '', location.pathname + location.search);
   });
+
+  // Strip any #hash from the URL after the browser's initial anchor jump
+  // (so shared links like /#contact still scroll correctly, but stay clean)
+  if (location.hash) {
+    var jumpTarget = document.getElementById(location.hash.slice(1));
+    window.addEventListener('load', function () {
+      if (jumpTarget) jumpTarget.scrollIntoView();
+      history.replaceState(null, '', location.pathname + location.search);
+    });
+  }
 
   /* ─── Section Entrance Animation ─── */
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
