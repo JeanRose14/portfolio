@@ -247,18 +247,19 @@ ul, ol { list-style: none; }
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 2px;
 }
 .nav-link {
   text-decoration: none;
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 1.6px;
+  letter-spacing: 1.2px;
   color: var(--ink-muted);
-  padding: 8px 14px;
+  padding: 8px 10px;
   border-radius: 8px;
   transition: color 0.25s, background 0.25s;
   position: relative;
+  white-space: nowrap;
 }
 .nav-link:hover,
 .nav-link.active {
@@ -307,6 +308,8 @@ ul, ol { list-style: none; }
   font-weight: 700;
   letter-spacing: 1.2px;
   border-radius: 50px;
+  white-space: nowrap;
+  flex-shrink: 0;
   box-shadow: var(--shadow-btn);
   transition: background 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
@@ -1347,6 +1350,12 @@ input:invalid:not(:placeholder-shown), textarea:invalid:not(:placeholder-shown) 
 }
 
 /* ═══════════ RESPONSIVE ═══════════ */
+@media (max-width: 1200px) {
+  .nav-link { font-size: 0.68rem; padding: 8px 8px; letter-spacing: 1px; }
+  .nav-cta { padding: 8px 16px; }
+  .nav-right { gap: 8px; }
+}
+
 @media (max-width: 1024px) {
   .hero-grid { gap: 40px; }
   .visual-frame { max-width: 340px; }
