@@ -82,6 +82,19 @@
   window.addEventListener('scroll', updateActiveLink, { passive: true });
   updateActiveLink();
 
+  /* ─── Clean URL — HOME & logo scroll to top without adding #hero ─── */
+  if (window.location.hash === '#hero') {
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
+
+  document.querySelectorAll('a[href="#hero"]').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+
   /* ─── Section Entrance Animation ─── */
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -102,24 +115,6 @@
     document.querySelectorAll('.section').forEach(function (s) {
       observer.observe(s);
     });
-  }
-
-  /* ─── HOME / logo — scroll to top without adding #hero to URL ─── */
-  function scrollToTopClean(e) {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
-    try {
-      history.replaceState(null, '', window.location.pathname + window.location.search);
-    } catch (err) { /* restricted contexts (e.g. file://) — keep URL as-is */ }
-  }
-  document.querySelectorAll('a[href="#hero"]').forEach(function (link) {
-    link.addEventListener('click', scrollToTopClean);
-  });
-  // Strip #hero from the URL if the page loads with it
-  if (window.location.hash === '#hero') {
-    try {
-      history.replaceState(null, '', window.location.pathname + window.location.search);
-    } catch (err) { /* ignore */ }
   }
 
   /* ─── Project Cards — Keyboard & Click ─── */
